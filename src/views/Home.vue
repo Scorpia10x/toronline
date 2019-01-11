@@ -22,7 +22,6 @@ export default {
 <style lang="scss">
 
 .home {
-
   margin-top: -60px;
   display: flex;
   flex-direction: column;

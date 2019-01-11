@@ -1,12 +1,32 @@
 <template lang='pug'>
-  form.explorer
-    input.search(type='search' placeholder='Enter request or .onion adress')
-    input.submit(type='submit' value='')
+  form.explorer(method='GET' action='/')
+    input.search(v-model='queryStr' 
+                 type='search' 
+                 placeholder='Enter request or .onion adress' 
+                 name='r'
+                 autofocus)
+    input.submit(type='submit' value='' :style='icon')
 </template>
 
 <script>
 export default {
-  name: 'Search'
+  name: 'Search',
+  data() {
+    return {
+      queryStr: ''
+    }
+  },
+  computed: {
+    queryType() {
+      let urlPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
+      return !!this.queryStr.match(urlPattern) ? 'visit' : 'search';
+    },
+    icon() {
+      return {
+        backgroundImage: `url("./${this.queryType}.svg")`
+      }
+    }
+  }
 }
 </script>
 
@@ -19,6 +39,7 @@ export default {
   align-items: center;
   border: 1px solid grey;
   width: 400px;
+  background-color: white;
 
   @media screen and (max-width: 565px) {
     width: 90%;
@@ -36,7 +57,7 @@ export default {
   .search {
     width: 100%;
     padding-left: 14px;
-    background: transparent;
+    background-color: transparent;
 
     &:focus {
       outline: none;
@@ -51,11 +72,15 @@ export default {
     margin: 0 10px;
     right: 10px;
     opacity: .7;
-    background: url('../assets/search.svg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100%;
     background-color: transparent;
+
+    &:hover {
+      cursor: pointer;
+    }
+
   }
 
 }
