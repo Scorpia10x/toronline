@@ -1,6 +1,6 @@
 <template lang='pug'>
   form.explorer
-    input.search(type='search' placeholder='Enter .onion adress or search request' autofocus)
+    input.search(type='search')
     input.submit(type='submit' value='')
 </template>
 
@@ -18,9 +18,14 @@ export default {
   justify-content: center;
   align-items: center;
   border: 1px solid lightgrey;
+  width: 400px;
+
+  @media screen and (max-width: 565px) {
+    width: 90%;
+  }
 
   @media screen and (max-width: 400px) {
-    width: 90%;
+    width: 70%;
   }
 
   .search, .submit {
@@ -29,8 +34,9 @@ export default {
   }
 
   .search {
-    width: 400px;
+    width: 100%;
     padding-left: 10px;
+    background: transparent;
 
     &:focus {
       outline: none;
