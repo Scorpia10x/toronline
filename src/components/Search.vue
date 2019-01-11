@@ -1,6 +1,6 @@
 <template lang='pug'>
   form.explorer
-    input.search(type='search')
+    input.search(type='search' placeholder='Enter request or .onion adress')
     input.submit(type='submit' value='')
 </template>
 
@@ -17,7 +17,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid lightgrey;
+  border: 1px solid grey;
   width: 400px;
 
   @media screen and (max-width: 565px) {
@@ -35,7 +35,7 @@ export default {
 
   .search {
     width: 100%;
-    padding-left: 10px;
+    padding-left: 14px;
     background: transparent;
 
     &:focus {
@@ -47,11 +47,14 @@ export default {
     width: fit-content;
     height: fit-content;
     outline: none;
-    padding: 5px;
+    padding: 7px;
     margin: 0 10px;
     right: 10px;
     opacity: .7;
-    background: url('../assets/search.svg') no-repeat center center;
+    background: url('../assets/search.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
     background-color: transparent;
   }
 

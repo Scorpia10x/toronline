@@ -1,6 +1,9 @@
 <template lang='pug'>
   .home
-    h1.title {{ $parent.title }}
+    h1.title
+      span.tor-color {{ $parent.title.slice(0, 3) }}
+      .
+        {{ $parent.title.slice(3) }}
     Search
 </template>
 
@@ -37,6 +40,11 @@ export default {
     @media screen and (max-width: 400px) {
       font-size: 2em;
     }
+
+    .tor-color {
+      color: darkviolet;
+    }
+
   }
 
 }
