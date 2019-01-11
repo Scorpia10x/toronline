@@ -4,20 +4,17 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-
+      title: "Torland's Gate"
     }
   }
 }
 </script>
 
 <style lang="scss">
-
-body {
-  margin: 0;
-}
 
 #app {
   min-height: 100vh;

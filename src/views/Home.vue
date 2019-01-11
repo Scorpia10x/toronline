@@ -1,6 +1,6 @@
 <template lang='pug'>
   .home
-    h1.title Torland's Gate
+    h1.title {{ $parent.title }}
     Search
 </template>
 
