@@ -1,11 +1,10 @@
 <template lang='pug'>
   form.explorer(method='GET' action='/')
-    input.search(v-model='queryStr' 
+    input.search(v-model='queryStr'
                  type='search' 
                  placeholder='Enter request or .onion adress' 
                  name='r'
                  autofocus)
-    .onion-link(v-show='isTorLink')
     input.submit(type='submit' value='' :style='goIcon')
 </template>
 
@@ -44,16 +43,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid grey;
-  width: 400px;
-  background-color: white;
+  border-bottom: 1px solid lightgrey;
+  background-color: transparent;
+  height: 40px;
+  grid-area: search;
+  align-self: end;
 
   @media screen and (max-width: 565px) {
-    width: 90%;
-  }
-
-  @media screen and (max-width: 400px) {
-    width: 70%;
+    width: 80vw;
   }
 
   .search, .submit, .onion-link {
@@ -63,8 +60,8 @@ export default {
 
   .search {
     width: 100%;
-    padding-left: 14px;
     background-color: transparent;
+    color: whitesmoke;
 
     &:focus {
       outline: none;
@@ -73,19 +70,22 @@ export default {
 
   .onion-link, .submit {
     padding: 0 7px;
-    margin: 0 10px;
+    margin-left: 10px;
     background-size: contain !important;
   }
 
   .onion-link {
     background: url('../assets/onion.svg') no-repeat center;
+    
+    &:hover {
+      cursor: help;
+    }
   }
 
   .submit {
     width: fit-content;
     height: fit-content;
     outline: none;
-    right: 10px;
     opacity: .7;
     background-repeat: no-repeat;
     background-position: center center;
