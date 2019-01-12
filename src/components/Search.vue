@@ -5,10 +5,12 @@
                  placeholder='Enter request or .onion adress' 
                  name='r'
                  autofocus)
-    input.submit(type='submit' value='' :style='icon')
+    .onion-link(v-show='isTorLink')
+    input.submit(type='submit' value='' :style='goIcon')
 </template>
 
 <script>
+
 export default {
   name: 'Search',
   data() {
@@ -19,9 +21,13 @@ export default {
   computed: {
     queryType() {
       let urlPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
-      return !!this.queryStr.match(urlPattern) ? 'visit' : 'search';
+      return !!this.queryStr.match(urlPattern) ? 'visit' : 'search'
     },
-    icon() {
+    isTorLink() {
+      let onionPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,}\.onion([\/\w \.-]*)*\/?$/);
+      return onionPattern.test(this.queryStr)
+    },
+    goIcon() {
       return {
         backgroundImage: `url("./${this.queryType}.svg")`
       }
@@ -49,7 +55,7 @@ export default {
     width: 70%;
   }
 
-  .search, .submit {
+  .search, .submit, .onion-link {
     height: 40px;
     border: none;
   }
@@ -64,17 +70,24 @@ export default {
     }
   }
 
+  .onion-link, .submit {
+    padding: 0 7px;
+    margin: 0 10px;
+    background-size: contain !important;
+  }
+
+  .onion-link {
+    background: url('../assets/onion.svg') no-repeat center;
+  }
+
   .submit {
     width: fit-content;
     height: fit-content;
     outline: none;
-    padding: 7px;
-    margin: 0 10px;
     right: 10px;
     opacity: .7;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 100%;
     background-color: transparent;
 
     &:hover {
