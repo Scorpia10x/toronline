@@ -20,11 +20,12 @@ export default {
   },
   computed: {
     queryType() {
-      let urlPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/);
-      return !!this.queryStr.match(urlPattern) ? 'visit' : 'search'
+      let urlPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-\?]*)*\/?/);
+      return urlPattern.test(this.queryStr) ? 'visit' : 'search'
     },
     isTorLink() {
-      let onionPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,}\.onion([\/\w \.-]*)*\/?$/);
+      if (this.queryType != 'visit') return false;
+      let onionPattern = new RegExp(/([\da-z\.-]+){16,}\.onion/);
       return onionPattern.test(this.queryStr)
     },
     goIcon() {
