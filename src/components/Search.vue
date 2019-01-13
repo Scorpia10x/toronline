@@ -1,8 +1,8 @@
 <template lang='pug'>
-  form.explorer(method='GET' action='/')
-    input.search(v-model='queryStr'
+  form.adress(method='GET' action='/')
+    input.field(v-model='queryStr'
                  type='search' 
-                 placeholder='Enter request or .onion adress' 
+                 placeholder='Enter adress of .onion resource' 
                  name='r'
                  autocomplete='off'
                  autofocus)
@@ -36,7 +36,7 @@ export default {
 
 <style scoped lang="scss">
 
-.explorer {
+.adress {
 
   display: flex;
   justify-content: center;
@@ -51,12 +51,12 @@ export default {
     width: 80vw;
   }
 
-  .search, .submit {
+  .field, .submit {
     height: 40px;
     border: none;
   }
 
-  .search {
+  .field {
     width: 100%;
     background-color: transparent;
     color: whitesmoke;

@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .home
+  .explorer
     img.logo(v-if='!isTorLink' src='../assets/onion.png')
     img.logo(v-else src='../assets/onion-green.png')
     h1.title {{ $parent.title }}
@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss">;
 
-.home {
+.explorer {
   display: grid;
   grid: "logo title"
         "logo search";
@@ -63,7 +63,7 @@ export default {
     align-self: end;
     min-width: 330px;
 
-    @media screen and (max-width: 575px) {
+    @media screen and (max-width: 565px) {
       font-size: 2em;
       text-align: center;
       min-width: 0;
