@@ -16,10 +16,16 @@ export default new Router({
       component: Home
     },
     {
-      path: '/:query',
+      path: '/:query*',
       name: 'frame',
       component: Frame,
       props: true
-    }
+    },
+    {
+      path: '/http://:query*',
+      name: 'frame',
+      component: Frame,
+      props: true
+    },
   ]
 })

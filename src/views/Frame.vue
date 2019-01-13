@@ -16,7 +16,11 @@ export default {
   },
   computed: {
     url() {
-      return 'http://' + this.query + '.ws'
+      let position = this.query.indexOf('.onion') + 6;
+      let array = this.query.split('');
+      array.splice(position, 0, '.ws');
+      let url = array.join('');
+      return 'http://' + url
     }
   }
 }
@@ -25,6 +29,8 @@ export default {
 <style lang="scss">;
 
 iframe {
+  background-image: none;
+  background-color: white;
   width: 100%;
   height: 100vh;
 }
