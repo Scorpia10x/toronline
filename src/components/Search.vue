@@ -54,7 +54,7 @@ export default {
     width: 80vw;
   }
 
-  .search, .submit, .onion-link {
+  .search, .submit {
     height: 40px;
     border: none;
   }
@@ -69,21 +69,10 @@ export default {
     }
   }
 
-  .onion-link, .submit {
+  .submit {
     padding: 0 7px;
     margin-left: 10px;
     background-size: contain !important;
-  }
-
-  .onion-link {
-    background: url('../assets/onion.svg') no-repeat center;
-    
-    &:hover {
-      cursor: help;
-    }
-  }
-
-  .submit {
     width: fit-content;
     height: fit-content;
     outline: none;
