@@ -22,8 +22,8 @@ export default {
   },
   computed: {
     isTorLink() {
-      let urlPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,}\.onion([\/\w \.-\?]*)*\/?/);
-      return urlPattern.test(this.queryStr)
+      let pattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,56}\.onion/);
+      return pattern.test(this.queryStr);
     }
   },
   watch: {
