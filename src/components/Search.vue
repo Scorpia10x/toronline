@@ -74,7 +74,7 @@ export default {
   }
 
   .field, .submit {
-    height: 40px;
+    height: 100%;
     border: none;
   }
 
@@ -92,9 +92,6 @@ export default {
     padding: 0 7px;
     margin-left: 10px;
     background-size: contain !important;
-    width: fit-content;
-    height: fit-content;
-    outline: none;
     opacity: .7;
     background-repeat: no-repeat;
     background-position: center center;

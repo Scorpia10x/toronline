@@ -6,7 +6,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+
 import Search from '@/components/Search.vue'
 
 export default {
@@ -47,7 +47,6 @@ export default {
           "search";
     grid-template-rows: repeat(3, fit-content);
     grid-row-gap: 30px;
-    place-content: center;
     justify-items: center;
     margin-top: -100px;
   }
