@@ -22,6 +22,7 @@ export default {
   },
   computed: {
     isTorLink() {
+      if (this.queryStr.length < 22) return false;
       let pattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,56}\.onion/);
       return pattern.test(this.queryStr);
     }
