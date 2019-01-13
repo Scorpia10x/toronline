@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .home
+  .home()
     img.logo(src='../assets/onion.png')
     h1.title {{ $parent.title }}
     Search
@@ -42,7 +42,7 @@ export default {
     grid-area: logo;
     filter: brightness(3);
     user-select: none;
-    width: 90px;
+    width: 74px;
   }
 
   .title {
