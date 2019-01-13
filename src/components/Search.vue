@@ -1,5 +1,7 @@
 <template lang='pug'>
-  form.adress(method='GET' action='/')
+  form.adress(@submit.prevent='explore()'
+              method='GET' 
+              action='/')
     input.field(v-model='queryStr'
                  type='search' 
                  placeholder='Enter adress of .onion resource' 
@@ -30,6 +32,25 @@ export default {
   watch: {
     isTorLink() {
       this.$parent.$emit('link-type-change', this.isTorLink)
+    }
+  },
+  methods: {
+    explore(e) {
+      if (!this.isTorLink) {
+        this.$snotify.info("Please, enter .onion adress into field.", {
+          timeout: 3000,
+          showProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true
+        });
+      } else {
+        this.$snotify.success("Successfuly.", {
+          timeout: 3000,
+          showProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      }
     }
   }
 }
