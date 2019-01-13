@@ -24,10 +24,15 @@ export default {
   },
   computed: {
     isTorLink() {
-      if (this.queryStr.length < 22) return false;
+      if (!this.queryStr.includes('.onion') || this.queryStr.length < 22) return false;
+
       let pattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,56}\.onion/);
-      let substr = this.queryStr.match(pattern)[0];
+      let substr = this.queryStr.match(pattern);
+
+      if (!substr) return false;
       
+      substr = substr[0]
+    
       // For more speed
       if (substr.length <= 30) return pattern.test(substr.slice(0, 30));
       
