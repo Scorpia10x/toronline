@@ -4,6 +4,7 @@
                  type='search' 
                  placeholder='Enter request or .onion adress' 
                  name='r'
+                 autocomplete='off'
                  autofocus)
     input.submit(type='submit' value='' :style='goIcon')
 </template>
