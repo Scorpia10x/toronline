@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      title: "Torland's Gate"
+      title: "Tor Online"
     }
   }
 }

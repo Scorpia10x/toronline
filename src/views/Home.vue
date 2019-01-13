@@ -61,10 +61,12 @@ export default {
     text-align: left;
     grid-area: title;
     align-self: end;
+    min-width: 330px;
 
     @media screen and (max-width: 575px) {
       font-size: 2em;
       text-align: center;
+      min-width: 0;
     }
   }
 
