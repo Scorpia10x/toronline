@@ -102,6 +102,10 @@ export default {
     background-position: center center;
     background-color: transparent;
 
+    &:focus {
+      outline: none;
+    }
+
     &:hover {
       cursor: pointer;
     }
