@@ -30,7 +30,7 @@ export default {
       let substr = this.queryStr.match(pattern);
 
       if (!substr) return false;
-      
+
       substr = substr[0]
     
       // For more speed
@@ -42,11 +42,13 @@ export default {
   },
   watch: {
     isTorLink() {
-      this.$parent.$emit('link-type-change', this.isTorLink)
+      this.$parent.$emit('link-type-change', this.isTorLink);
+      this.$emit('link-type-change', this.isTorLink)
     }
   },
   methods: {
-    explore(e) {
+    explore() {
+      if (!this.queryStr) return;
       if (!this.isTorLink) {
         this.$snotify.info("Please, enter .onion adress into field.", {
           timeout: 3000,
@@ -63,6 +65,9 @@ export default {
         });
       }
     }
+  },
+  created() {
+    this.$on('link-type-change', type => this.explore())
   }
 }
 </script>
