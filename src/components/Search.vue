@@ -26,7 +26,13 @@ export default {
     isTorLink() {
       if (this.queryStr.length < 22) return false;
       let pattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,56}\.onion/);
-      return pattern.test(this.queryStr);
+      let substr = this.queryStr.match(pattern)[0];
+      
+      // For more speed
+      if (substr.length <= 30) return pattern.test(substr.slice(0, 30));
+      
+      // For faster processing of Onion v3 adresses
+      else return pattern.test(this.queryStr);
     }
   },
   watch: {
