@@ -5,6 +5,10 @@ import router from './router'
 // Normalize.css
 import normalize from 'normalize.css'
 
+// Notifications
+import Snotify from 'vue-snotify';
+Vue.use(Snotify)
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -11,7 +11,8 @@
     "vue": "^2.5.21",
     "vue-element-loading": "^1.0.5",
     "vue-lodash": "^2.0.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-snotify": "^3.2.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.3.0",
