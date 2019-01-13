@@ -73,7 +73,6 @@ export default {
       min-width: 0;
     }
   }
-
 }
 
 </style>

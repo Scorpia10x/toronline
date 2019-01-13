@@ -59,7 +59,6 @@ export default {
 <style scoped lang="scss">
 
 .adress {
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,7 +101,6 @@ export default {
     }
 
   }
-
 }
 
 </style>
