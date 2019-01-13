@@ -1,6 +1,15 @@
 # toronline
 
-## Project setup
+## Setup and running
+```
+git clone https://github.com/jasiemion/toronline-frontend.git
+cd toronline-frontend
+npm i
+npm run serve
+```
+## Default vue-cli description
+
+### Project setup
 ```
 npm install
 ```
