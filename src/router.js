@@ -16,7 +16,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/r=:query',
+      path: '/:query',
       name: 'frame',
       component: Frame,
       props: true

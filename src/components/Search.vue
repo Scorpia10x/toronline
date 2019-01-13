@@ -63,6 +63,7 @@ export default {
           closeOnClick: true,
           pauseOnHover: true,
         });
+        this.$router.push(this.queryStr)
       }
     }
   },
