@@ -1,7 +1,6 @@
 <template lang='pug'>
   .explorer
-    img.logo(v-if='!isTorLink' src='../assets/onion.png')
-    img.logo(v-else src='../assets/onion-green.png')
+    img.logo(:src='actualLogo')
     h1.title {{ $parent.title }}
     Search
 </template>
@@ -18,6 +17,12 @@ export default {
   data() {
     return {
       isTorLink: null
+    }
+  },
+  computed: {
+    actualLogo() {
+      let suffix = this.isTorLink ? '-green' : '';
+      return `./onion${suffix}.png`
     }
   },
   mounted() {
