@@ -6,7 +6,9 @@
                  name='r'
                  autocomplete='off'
                  autofocus)
-    input.submit(type='submit' value='' :style='goIcon')
+    input.submit(type='submit' 
+                 value='' 
+                 style='background-image: url("./visit.svg")')
 </template>
 
 <script>
@@ -19,19 +21,14 @@ export default {
     }
   },
   computed: {
-    queryType() {
-      let urlPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-\?]*)*\/?/);
-      return urlPattern.test(this.queryStr) ? 'visit' : 'search'
-    },
     isTorLink() {
-      if (this.queryType != 'visit') return false;
-      let onionPattern = new RegExp(/([\da-z\.-]+){16,}\.onion/);
-      return onionPattern.test(this.queryStr)
-    },
-    goIcon() {
-      return {
-        backgroundImage: `url("./${this.queryType}.svg")`
-      }
+      let urlPattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,}\.onion([\/\w \.-\?]*)*\/?/);
+      return urlPattern.test(this.queryStr)
+    }
+  },
+  watch: {
+    isTorLink() {
+      this.$parent.$emit('link-type-change', this.isTorLink)
     }
   }
 }

@@ -1,6 +1,7 @@
 <template lang='pug'>
-  .home()
-    img.logo(src='../assets/onion.png')
+  .home
+    img.logo(v-if='!isTorLink' src='../assets/onion.png')
+    img.logo(v-else src='../assets/onion-green.png')
     h1.title {{ $parent.title }}
     Search
 </template>
@@ -13,6 +14,14 @@ export default {
   name: 'home',
   components: {
     Search
+  },
+  data() {
+    return {
+      isTorLink: null
+    }
+  },
+  mounted() {
+    this.$on('link-type-change', type => this.isTorLink = type)
   }
 }
 </script>
@@ -42,7 +51,7 @@ export default {
     grid-area: logo;
     filter: brightness(3);
     user-select: none;
-    width: 74px;
+    width: 73px;
   }
 
   .title {
