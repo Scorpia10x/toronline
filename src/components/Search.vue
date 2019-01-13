@@ -3,11 +3,11 @@
               method='GET' 
               action='/')
     input.field(v-model='queryStr'
-                 type='search' 
-                 placeholder='Enter adress of .onion resource' 
-                 name='r'
-                 autocomplete='off'
-                 autofocus)
+                type='search' 
+                placeholder='Enter adress of .onion resource' 
+                name='r'
+                autocomplete='off'
+                autofocus)
     input.submit(type='submit' 
                  value='' 
                  style='background-image: url("./visit.svg")')
@@ -50,7 +50,7 @@ export default {
     explore() {
       if (!this.queryStr) return;
       if (!this.isTorLink) {
-        this.$snotify.info("Please, enter .onion adress into field.", {
+        this.$snotify.info("Please enter .onion adress.", {
           timeout: 3000,
           showProgressBar: false,
           closeOnClick: true,
