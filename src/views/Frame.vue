@@ -1,10 +1,12 @@
 <template lang='pug'>
-  iframe(:src='url'
-         frameborder='0'
-         )
+    iframe(:src='url'
+           frameborder='0'
+           )
 </template>
 
 <script>
+
+import regexes from '../utils/regexes';
 
 export default {
   name: 'frame',
@@ -19,8 +21,8 @@ export default {
       let position = this.query.indexOf('.onion') + 6;
       let array = this.query.split('');
       array.splice(position, 0, '.ws');
-      let url = array.join('');
-      return 'http://' + url
+      let url = 'http://' + array.join('');
+      return regexes.onionLinkPattern.test(url) ? url : false;
     }
   }
 }

@@ -15,18 +15,20 @@
 
 <script>
 
+import regexes from '../utils/regexes';
+
 export default {
   name: 'Search',
   data() {
     return {
-      queryStr: ''
+      queryStr: '',
     }
   },
   computed: {
     isTorLink() {
       if (!this.queryStr.includes('.onion') || this.queryStr.length < 22) return false;
 
-      let pattern = new RegExp(/^(https?:\/\/)?([\da-z\.-]+){16,56}\.onion/);
+      let pattern = regexes.onionLinkPattern;
       let substr = this.queryStr.match(pattern);
 
       if (!substr) return false;
@@ -43,7 +45,6 @@ export default {
   watch: {
     isTorLink() {
       this.$parent.$emit('link-type-change', this.isTorLink);
-      this.$emit('link-type-change', this.isTorLink)
     }
   },
   methods: {
@@ -68,7 +69,7 @@ export default {
     }
   },
   created() {
-    this.$on('link-type-change', type => this.explore())
+    this.$on('link-type-change', type => this.explore());
   }
 }
 </script>
