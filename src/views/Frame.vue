@@ -1,7 +1,9 @@
 <template lang='pug'>
-    iframe(:src='url'
+    iframe(v-if='!!url'
+           :src='url'
            frameborder='0'
            )
+    p(v-else class='notice') Please enter correct .onion adress.
 </template>
 
 <script>
@@ -35,6 +37,10 @@ iframe {
   background-color: white;
   width: 100%;
   height: 100vh;
+}
+
+.notice {
+  color: black;
 }
 
 </style>
