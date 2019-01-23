@@ -20,8 +20,6 @@ export default {
 // App styles
 
 #app {
-  background: url('./assets/texture.jpg');
-  background-color: #111111;
   min-height: 100vh;
   display: flex;
   align-items: center;
