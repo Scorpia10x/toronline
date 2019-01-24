@@ -18,11 +18,20 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      proxy: 'ws'
+    }
+  },
   computed: {
     url() {
       let position = this.query.indexOf('.onion') + 6;
       let array = this.query.split('');
-      array.splice(position, 0, '.ws');
+
+      if (!this.query.includes(`.${this.proxy}`)) {
+        array.splice(position, 0, `.${this.proxy}`);
+      }
+      
       let url = 'http://' + array.join('');
       return regexes.onionLinkPattern.test(url) ? url : false;
     }
