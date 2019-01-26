@@ -2,7 +2,7 @@
   .explorer
     img.logo(:src='actualLogo')
     h1.title {{ $parent.title }}
-    Search
+    Search(:proxyList='proxyList')
 </template>
 
 <script>
@@ -16,6 +16,20 @@ export default {
   },
   data() {
     return {
+      proxyList: [
+        {
+          name: 'ws',
+          rate: 8
+        },
+        {
+          name: 'pet',
+          rate: 9
+        },
+        {
+          name: 'to',
+          rate: 1
+        }
+      ],
       isTorLink: null
     }
   },

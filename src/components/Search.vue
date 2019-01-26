@@ -17,11 +17,17 @@
 
 export default {
   name: 'Search',
+  props: {
+    proxyList: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       invalidValue: false,
       query: '',
-      proxy: 'pet'
+      proxy: null
     }
   },
   computed: {
@@ -59,6 +65,11 @@ export default {
         
       }
     }
+  },
+  mounted() {
+    this.proxyList = this.proxyList
+      .sort( (p1, p2) => p2.rate - p1.rate );
+    this.proxy = this.proxyList[0].name
   }
 }
 
