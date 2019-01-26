@@ -17,8 +17,7 @@ export default new Router({
     },
     {
       path: '/*',
-      component: Search,
-      props: (route) => ({ urlQuery: route.params.pathMatch })
+      redirect: '/'
     }
   ]
 })
