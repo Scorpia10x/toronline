@@ -20,10 +20,11 @@ export default {
 // App styles
 
 #app {
+  background: url('./assets/texture.jpg');
+  background-color: #111111;
+  display: grid;
+  grid-template: 1fr / 1fr;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: Helvetica, Arial, sans-serif;
   color: #d4d4d4;
 }

@@ -39,19 +39,7 @@ export default {
         "logo search";
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 40px;
-
-  &::before {
-    content: '';
-    background: url('../assets/texture.jpg');
-    background-color: #111111;
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-  }
+  place-self: center;
 
   @media screen and (max-width: 565px) {
     width: 100%;
