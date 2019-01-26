@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from  './views/Home.vue'
-import Frame from './views/Frame.vue'
+import Search from './components/Search.vue'
 
 Vue.use(Router)
 
@@ -16,10 +16,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/(https?\:\/\/)\?:query*',
-      name: 'frame',
-      component: Frame,
-      props: true
+      path: '/*',
+      component: Search,
+      props: (route) => ({ urlQuery: route.params.pathMatch })
     }
   ]
 })
