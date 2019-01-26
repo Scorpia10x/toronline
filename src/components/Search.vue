@@ -1,16 +1,16 @@
 <template lang='pug'>
-  form.adress(@submit.prevent='explore()'
+  form.adress(v-if='!isDirectlyQuery'
+              @submit.prevent='explore()'
               method='GET' 
               action='/')
-    input.field(v-model='queryStr'
+    input.field(v-model='strQuery'
                 type='search' 
                 placeholder='Enter adress of .onion resource' 
-                name='r'
                 autocomplete='off'
                 autofocus)
     input.submit(type='submit' 
-                 value='' 
-                 style='background-image: url("./visit.svg")')
+                 value='')
+  p(v-else class='info') Page loading...
 </template>
 
 <script>
@@ -19,27 +19,35 @@ import regexes from '../utils/regexes';
 
 export default {
   name: 'Search',
+  props: {
+    urlQuery: {
+      type: String,
+      required: false
+    }
+  },
   data() {
     return {
-      queryStr: '',
+      strQuery: '',
+      proxy: 'pet',
+      noticeOptions: {
+        timeout: 3000,
+        showProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      }
     }
   },
   computed: {
+    query() {
+      return this.urlQuery || this.strQuery
+    },
     isTorLink() {
-      if (!this.queryStr.includes('.onion') || this.queryStr.length < 22) return false;
-
-      let pattern = regexes.onionLinkPattern;
-      let substr = this.queryStr.match(pattern);
-
-      if (!substr) return false;
-
-      substr = substr[0]
-    
-      // For more speed
-      if (substr.length <= 30) return pattern.test(substr.slice(0, 30));
-      
-      // For faster processing of Onion v3 adresses
-      else return pattern.test(this.queryStr);
+      return this.query.includes('.onion') &&
+             !this.query.length < 22 &&
+             regexes.onionLink.test(this.query)
+    },
+    isDirectlyQuery() {
+      return ( (this.query == this.urlQuery) && this.isTorLink )
     }
   },
   watch: {
@@ -49,26 +57,23 @@ export default {
   },
   methods: {
     explore() {
-      if (!this.queryStr) return;
       if (!this.isTorLink) {
-        this.$snotify.info("Please enter .onion adress.", {
-          timeout: 3000,
-          showProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true
-        });
+        this.$snotify.info("Please enter .onion adress.", this.noticeOptions);
       } else {
-        this.$snotify.success("Successfuly.", {
-          timeout: 3000,
-          showProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
-        this.$router.push(this.queryStr)
+        this.$snotify.success("Successfuly.", this.noticeOptions);
+        
+        let url = this.query;
+        if (!url.includes(this.proxy))
+          url = url.replace(/\.onion/, `.onion.${this.proxy}`);
+        
+        window.location.href = url
       }
     }
   },
   created() {
+    if ( (this.urlQuery == this.query) && this.isTorLink )
+      this.explore();
+
     this.$on('link-type-change', type => this.explore());
   }
 }
@@ -108,6 +113,7 @@ export default {
   .submit {
     padding: 0 7px;
     margin-left: 10px;
+    background-image: url("../assets/visit.svg");
     background-size: contain !important;
     opacity: .7;
     background-repeat: no-repeat;
@@ -123,6 +129,10 @@ export default {
     }
 
   }
+}
+
+.info {
+  color: #000;
 }
 
 </style>
