@@ -4,6 +4,8 @@
               method='GET' 
               action='/')
     input.field(v-model='strQuery'
+                :class='invalidValue ? "invalid" : ""'
+                @input='invalidValue = false'
                 type='search' 
                 placeholder='Enter adress of .onion resource' 
                 autocomplete='off'
@@ -27,14 +29,9 @@ export default {
   },
   data() {
     return {
+      invalidValue: false,
       strQuery: '',
-      proxy: 'pet',
-      noticeOptions: {
-        timeout: 3000,
-        showProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      }
+      proxy: 'pet'
     }
   },
   computed: {
@@ -57,16 +54,20 @@ export default {
   },
   methods: {
     explore() {
-      if (!this.isTorLink) {
-        this.$snotify.info("Please enter .onion adress.", this.noticeOptions);
-      } else {
-        this.$snotify.success("Successfuly.", this.noticeOptions);
+      if (this.isTorLink) {
+        this.$root.$emit('transition', true);
         
         let url = this.query;
         if (!url.includes(this.proxy))
           url = url.replace(/\.onion/, `.onion.${this.proxy}`);
         
         window.location.href = url
+
+      } else {
+        this.invalidValue = true;
+        setTimeout(() => {
+          this.invalidValue = false;
+        }, 600);
       }
     }
   },
@@ -77,6 +78,7 @@ export default {
     this.$on('link-type-change', type => this.explore());
   }
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -90,6 +92,11 @@ export default {
   height: 40px;
   grid-area: search;
   align-self: end;
+  transition: border-color .1s;
+
+  .field.invalid {
+    animation: validationError .6s alternate;
+  }
 
   @media screen and (max-width: 565px) {
     width: 80vw;
@@ -104,10 +111,12 @@ export default {
     width: 100%;
     background-color: transparent;
     color: whitesmoke;
+    transition: color .1s;
 
     &:focus {
       outline: none;
     }
+
   }
 
   .submit {
@@ -131,8 +140,23 @@ export default {
   }
 }
 
-.info {
-  color: #000;
+@keyframes validationError {
+  0% {
+    color: inherit;
+  }
+
+  25% {
+    color: indianred;
+  }
+
+  75% {
+    color: indianred;
+  }
+
+  100% {
+    color: inherit;
+  }
+
 }
 
 </style>

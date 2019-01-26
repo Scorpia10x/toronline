@@ -1,7 +1,8 @@
 <template lang='pug'>
   #app
-    router-view
-    vue-snotify
+    transition(name='rotate' mode='out-in')
+      router-view(v-if='!isTransition')
+      .transition-layer(v-else :style='display')
 </template>
 
 <script>
@@ -9,8 +10,22 @@
 export default {
   data() {
     return {
-      title: "Tor Online"
+      title: "Tor Online",
+      isTransition: false,
+      initialState: true
     }
+  },
+  computed: {
+    display() {
+      return {
+        'display' : this.initialState ? "none" : "flex"
+      }
+    }
+  },
+  mounted() {
+    this.isTransition = false;
+    this.initialState = false;
+    this.$root.$on('transition', state => this.isTransition = state)
   }
 }
 </script>
@@ -29,39 +44,36 @@ export default {
   color: #d4d4d4;
 }
 
-// Notifications: theme import and overwrite
+.rotate-enter-active, .rotate-leave-active {
+  transition: transform .3s
+}
+.rotate-enter, .rotate-leave-to {
+  transform: rotateX(90deg)
+}
 
-@import "~vue-snotify/styles/dark";
+.transition-layer {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  place-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: bright .1s linear both;
+  animation-delay: .3s;
+}
 
-.snotify {
+@keyframes bright {
 
-  &-rightBottom {
-    bottom: 20px;
-    right: 20px;
+  from {
+    opacity: 0
   }
 
-  &-icon {
-    opacity: .6;
-    right: 20px;
-  }
-
-  &Toast {
-    background-color: rgba(0, 0, 0, .6);
-
-    &__progressBar {
-      background-color: rgba(0, 0, 0, .6);
-    }
-
-    &__body {
-      text-align: left;
-      line-height: 1.5;
-    }
-
-    &__inner {
-      padding: 15px 75px 15px 25px;
-    }
+  to {
+    opacity: 1
   }
 
 }
+
 
 </style>
