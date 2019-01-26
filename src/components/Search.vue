@@ -1,9 +1,8 @@
 <template lang='pug'>
-  form.adress(v-if='!isDirectlyQuery'
-              @submit.prevent='explore()'
+  form.adress(@submit.prevent='explore()'
               method='GET' 
               action='/')
-    input.field(v-model='strQuery'
+    input.field(v-model='query'
                 :class='invalidValue ? "invalid" : ""'
                 @input='invalidValue = false'
                 type='search' 
@@ -12,39 +11,24 @@
                 autofocus)
     input.submit(type='submit' 
                  value='')
-  p(v-else class='info') Page loading...
 </template>
 
 <script>
 
-import regexes from '../utils/regexes';
-
 export default {
   name: 'Search',
-  props: {
-    urlQuery: {
-      type: String,
-      required: false
-    }
-  },
   data() {
     return {
       invalidValue: false,
-      strQuery: '',
+      query: '',
       proxy: 'pet'
     }
   },
   computed: {
-    query() {
-      return this.urlQuery || this.strQuery
-    },
     isTorLink() {
       return this.query.includes('.onion') &&
              !this.query.length < 22 &&
-             regexes.onionLink.test(this.query)
-    },
-    isDirectlyQuery() {
-      return ( (this.query == this.urlQuery) && this.isTorLink )
+             /^(https?:\/\/)?([\da-z\.-]+){16,56}\.onion/.test(this.query)
     }
   },
   watch: {
@@ -55,27 +39,26 @@ export default {
   methods: {
     explore() {
       if (this.isTorLink) {
+
+        if (this.query.slice(0, 7) != 'http://')
+          this.query = `http://${this.query}`;
+
+        if (!this.query.includes(this.proxy))
+          this.query = this.query.replace(/\.onion/, `.onion.${this.proxy}`);
+
         this.$root.$emit('transition', true);
         
-        let url = this.query;
-        if (!url.includes(this.proxy))
-          url = url.replace(/\.onion/, `.onion.${this.proxy}`);
-        
-        window.location.href = url
+        window.location.href = this.query
 
       } else {
+
         this.invalidValue = true;
         setTimeout(() => {
           this.invalidValue = false;
         }, 600);
+        
       }
     }
-  },
-  created() {
-    if ( (this.urlQuery == this.query) && this.isTorLink )
-      this.explore();
-
-    this.$on('link-type-change', type => this.explore());
   }
 }
 
@@ -92,11 +75,6 @@ export default {
   height: 40px;
   grid-area: search;
   align-self: end;
-  transition: border-color .1s;
-
-  .field.invalid {
-    animation: validationError .6s alternate;
-  }
 
   @media screen and (max-width: 565px) {
     width: 80vw;
@@ -112,6 +90,10 @@ export default {
     background-color: transparent;
     color: whitesmoke;
     transition: color .1s;
+
+    &.invalid {
+      animation: validationError .6s alternate;
+    }
 
     &:focus {
       outline: none;
