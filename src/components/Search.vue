@@ -34,7 +34,7 @@ export default {
     isTorLink() {
       return this.query.includes('.onion') &&
              !this.query.length < 22 &&
-             /^(https?:\/\/)?([\da-z\.-]+){16,56}\.onion/.test(this.query)
+             /^(https?:\/\/)?([\da-z\.-]+){16,56}\.onion(\/.*)?$/.test(this.query)
     }
   },
   watch: {
