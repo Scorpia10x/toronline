@@ -9,10 +9,10 @@
 [Not Evil](http://hss3uro2hsxfogfq.onion/)  
 [Flibusta](http://flibustahezeous3.onion/)
 
-## Setup and running
+## Setup and running (development)
 ```
-git clone https://github.com/jasiemion/toronline-frontend.git
-cd toronline-frontend
+git clone https://github.com/jasiemion/toronline.git
+cd toronline
 npm i
 npm run serve
 ```
