@@ -1,10 +1,25 @@
 version: '3'
 services:
 
+  db:
+    image: postgres
+
+  server:
+    build: ./server
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./server:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres@db/postgres
+
   client:
     build: ./client
     command: sh -c "npm i && npm run serve"
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes:
       - ./client:/app
