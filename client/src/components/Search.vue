@@ -19,7 +19,6 @@ export default {
   name: 'Search',
   props: {
     proxyList: {
-      type: Array,
       required: true
     }
   },
@@ -39,7 +38,10 @@ export default {
   },
   watch: {
     isTorLink() {
-      this.$parent.$emit('link-type-change', this.isTorLink);
+      this.$parent.$emit('link-type-change', this.isTorLink)
+    },
+    proxyList() {
+      this.proxy = this.proxyList[0].name
     }
   },
   methods: {
@@ -60,16 +62,11 @@ export default {
 
         this.invalidValue = true;
         setTimeout(() => {
-          this.invalidValue = false;
+          this.invalidValue = false
         }, 600);
         
       }
     }
-  },
-  mounted() {
-    this.proxyList = this.proxyList
-      .sort( (p1, p2) => p2.rate - p1.rate );
-    this.proxy = this.proxyList[0].name
   }
 }
 

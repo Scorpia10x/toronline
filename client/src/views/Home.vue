@@ -16,20 +16,7 @@ export default {
   },
   data() {
     return {
-      proxyList: [
-        {
-          name: 'ws',
-          rate: 8
-        },
-        {
-          name: 'pet',
-          rate: 9
-        },
-        {
-          name: 'to',
-          rate: 1
-        }
-      ],
+      proxyList: null,
       isTorLink: null
     }
   },
@@ -38,6 +25,11 @@ export default {
       let suffix = this.isTorLink ? '-green' : '';
       return `./onion${suffix}.png`
     }
+  },
+  created() {
+    fetch('http://localhost:8000/proxy/')
+      .then(res => res.json())
+      .then(proxies => this.proxyList = proxies.results)
   },
   mounted() {
     this.$on('link-type-change', type => this.isTorLink = type)
