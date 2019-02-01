@@ -3,3 +3,4 @@ dj-database-url
 psycopg2>=2.7,<3.0
 djangorestframework
 django-cors-headers
+coverage==4.4.1
