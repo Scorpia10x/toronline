@@ -5,26 +5,25 @@ from rest_framework.test import APITestCase
 from .models import Proxy
 
 
-def prepare_proxies():
-
-    proxy_list = [
-        { 'name' : 'ws',   'rate' : 8 },
-        { 'name' : 'pet',  'rate' : 9 },
-        { 'name' : 'link', 'rate' : 0 },
-        { 'name' : 'to',   'rate' : 1 },
-    ]
-
-    for proxy in proxy_list:
-        test_proxy = Proxy(name = proxy['name'], rate = proxy['rate'])
-        test_proxy.save()
-
-    return proxy_list
-
-
 class ProxyTests(APITestCase):
 
+    def prepare_proxies(self):
+
+        self.proxies= [
+            { 'name' : 'ws',   'rate' : 8 },
+            { 'name' : 'pet',  'rate' : 9 },
+            { 'name' : 'link', 'rate' : 0 },
+            { 'name' : 'to',   'rate' : 1 },
+        ]
+
+        for proxy in self.proxies:
+            test_proxy = Proxy(name = proxy['name'], rate = proxy['rate'])
+            test_proxy.save()
+
+        return self.proxies
+
     def setUp(self):
-        self.proxies = prepare_proxies()
+        self.prepare_proxies()
 
     def test_proxies_order(self):
         response = self.client.get('/proxy/', format='json')
