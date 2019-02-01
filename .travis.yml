@@ -1,0 +1,20 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+before_script:
+- docker-compose build
+- docker-compose up -d
+
+script:
+- docker-compose run --rm server python ./manage.py test api
+
+after_script:
+- docker-compose down
+
+branches:
+  only:
+  - master
