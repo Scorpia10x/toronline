@@ -1,5 +1,3 @@
-import json
-
 from rest_framework.test import APITestCase
 
 from .models import Proxy
@@ -27,13 +25,11 @@ class ProxyTests(APITestCase):
 
     def test_proxies_order(self):
         response = self.client.get('/proxy/', format='json')
-        proxies = json.loads( response.content )['results']
-        
-        for i in range( len(proxies) ):
-            try:
-                self.assertTrue( proxies[i]['rate'] > proxies[i+1]['rate'] )
-            except IndexError:
-                break
+        self.assertEqual(response.status_code, 200)
+
+        proxies = response.data['results']
+        self.assertListEqual( [proxy['name'] for proxy in proxies],
+                              ['pet', 'ws', 'to', 'link'] )
 
     def test_proxy_availability(self):
         for proxy in self.proxies:
