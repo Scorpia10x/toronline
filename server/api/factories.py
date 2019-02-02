@@ -7,3 +7,4 @@ class ProxyFactory(DjangoModelFactory):
 
     name = ''
     rate = 0
+    replace_original_domain = False

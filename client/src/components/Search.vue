@@ -26,7 +26,8 @@ export default {
     return {
       invalidValue: false,
       query: '',
-      proxy: null
+      proxy: null,
+      replaceOriginalDomain: null
     }
   },
   computed: {
@@ -41,7 +42,8 @@ export default {
       this.$parent.$emit('link-type-change', this.isTorLink)
     },
     proxyList() {
-      this.proxy = this.proxyList[0].name
+      this.proxy = this.proxyList[0].name;
+      this.replaceOriginalDomain = this.proxyList[0].replace_original_domain
     }
   },
   methods: {
@@ -52,7 +54,9 @@ export default {
           this.query = `http://${this.query}`;
 
         if (!this.query.includes(this.proxy))
-          this.query = this.query.replace(/\.onion/, `.onion.${this.proxy}`);
+          this.query = this.query.replace(/\.onion/, this.replaceOriginalDomain ?
+            `.${this.proxy}` :
+            `.onion.${this.proxy}`)
 
         this.$root.$emit('transition', true);
         
