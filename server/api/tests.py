@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 
-from .models import Proxy
+from .factories import ProxyFactory
 
 
 class ProxyTests(APITestCase):
@@ -15,8 +15,7 @@ class ProxyTests(APITestCase):
         ]
 
         for proxy in self.proxies:
-            test_proxy = Proxy(name=proxy['name'], rate=proxy['rate'])
-            test_proxy.save()
+            ProxyFactory.create(name=proxy['name'], rate=proxy['rate'])
 
         return self.proxies
 
