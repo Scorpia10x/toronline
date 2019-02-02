@@ -1,5 +1,7 @@
 # toronline
 
+[![Build Status](https://travis-ci.org/jasiemion/toronline.svg?branch=master)](https://travis-ci.org/jasiemion/toronline)
+
 ## Live demo
 [Tor Online](https://jasiemion.github.io)
 
