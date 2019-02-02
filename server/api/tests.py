@@ -31,11 +31,6 @@ class ProxyTests(APITestCase):
         self.assertListEqual( [proxy['name'] for proxy in proxies],
                               ['pet', 'ws', 'to', 'link'] )
 
-    def test_proxy_availability(self):
-        for proxy in self.proxies:
-            response = self.client.get('http://onion.{}'.format(proxy['name']))
-            self.assertEqual(response.status_code, 200)
-
     def test_nonexistent_proxy(self):
         response = self.client.get('/proxy/nonexistent/', format='json')
         self.assertFalse(response.status_code == 200)
