@@ -33,4 +33,4 @@ class ProxyTests(APITestCase):
 
     def test_nonexistent_proxy(self):
         response = self.client.get('/proxy/nonexistent/', format='json')
-        self.assertFalse(response.status_code == 200)
+        self.assertNotEqual(response.status_code, 200)
