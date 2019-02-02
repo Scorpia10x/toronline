@@ -7,15 +7,15 @@ class ProxyTests(APITestCase):
 
     def prepare_proxies(self):
 
-        self.proxies= [
-            { 'name' : 'ws',   'rate' : 8 },
-            { 'name' : 'pet',  'rate' : 9 },
-            { 'name' : 'link', 'rate' : 0 },
-            { 'name' : 'to',   'rate' : 1 },
+        self.proxies = [
+            {'name': 'ws',   'rate': 8},
+            {'name': 'pet',  'rate': 9},
+            {'name': 'link', 'rate': 0},
+            {'name': 'to',   'rate': 1},
         ]
 
         for proxy in self.proxies:
-            test_proxy = Proxy(name = proxy['name'], rate = proxy['rate'])
+            test_proxy = Proxy(name=proxy['name'], rate=proxy['rate'])
             test_proxy.save()
 
         return self.proxies
@@ -28,8 +28,8 @@ class ProxyTests(APITestCase):
         self.assertEqual(response.status_code, 200)
 
         proxies = response.data['results']
-        self.assertListEqual( [proxy['name'] for proxy in proxies],
-                              ['pet', 'ws', 'to', 'link'] )
+        proxy_names = [proxy['name'] for proxy in proxies]
+        self.assertListEqual(proxy_names, ['pet', 'ws', 'to', 'link'])
 
     def test_nonexistent_proxy(self):
         response = self.client.get('/proxy/nonexistent/', format='json')
